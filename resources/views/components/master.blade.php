@@ -3,11 +3,15 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Modo admin</title>
+    <title>@yield('title')</title>
     <!-- CSS files -->
-    <link href="{{ ('assets/dist/css/tabler.min.css?1692870487') }}" rel="stylesheet"/>
-    <link href="{{ ('assets/dist/css/tabler-vendors.min.css?1692870487')  }}" rel="stylesheet"/>
-    <link href="{{ ('assets/dist/css/demo.min.css?1692870487')  }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/dist/css/tabler.min.css?1692870487') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/dist/css/tabler-vendors.min.css?1692870487')  }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/dist/css/demo.min.css?1692870487')  }}" rel="stylesheet"/>
+
+    {{-- Tabler CDN --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -26,11 +30,13 @@
         @yield('content')
       </div>
     </div>
-    <script src="{{ ('assets/dist/js/demo-theme.min.js?1692870487') }}"></script>
+    <script src="{{ asset('assets/dist/js/demo-theme.min.js?1692870487') }}"></script>
     <!-- Libs JS -->
-    <script src="{{ ('assets/dist/libs/apexcharts/dist/apexcharts.min.js?1692870487') }}" defer></script>
+    <script src="{{ asset('assets/dist/libs/apexcharts/dist/apexcharts.min.js?1692870487') }}" defer></script>
     <!-- Tabler Core -->
-    <script src="{{ ('assets/dist/js/tabler.min.js?1692870487') }}" defer></script>
-    <script src="{{ ('assets/dist/js/demo.min.js?1692870487') }}" defer></script>
+    <script src="{{ asset('assets/dist/js/tabler.min.js?1692870487') }}" defer></script>
+    <script src="{{ asset('assets/dist/js/demo.min.js?1692870487') }}" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
   </body>
 </html>
