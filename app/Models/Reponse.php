@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class QuizController extends Controller
+class ReponseController extends Controller
 {
     public function index() {
-        return view('pages.quiz.index');
+        return view('pages.reponse.index');
     }
 
     public function create() {
-        return view('pages.quiz.create');
+        return view('pages.reponse.create');
     }
 }
