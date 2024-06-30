@@ -16,4 +16,8 @@ class Quizz extends Model
         'duree',
         'heure_debut'
     ];
+
+    public function questions() {
+        return $this->hasMany(Question::class);
+    }
 }

@@ -38,7 +38,7 @@
                         <th>Titre</th>
                         <th>Description</th>
                         <th>Heure de début</th>
-                        <th>Durée</th>
+                        <th>Durée (min)</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -48,7 +48,7 @@
                             <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>
                             <td>{{ $quizz->titre }}</td>
                             <td>{{ $quizz->description }}</td>
-                            <td>{{ $quizz->heure_debut }}</td>
+                            <td>{{ Carbon\Carbon::parse($quizz->heure_debut)->format('H:i') }}</td>
                             <td>{{ $quizz->duree }}</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Actions">

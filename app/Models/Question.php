@@ -13,4 +13,8 @@ class Question extends Model
         'texte',
         'fichier'
     ];
+
+    public function quizzes() {
+        return $this->belongsTo(Quizz::class, 'quizzes_id');
+    }
 }

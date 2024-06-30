@@ -46,7 +46,7 @@ class QuizzController extends Controller
         $quizz->save();
 
 
-        return redirect('quizz');
+        return redirect('/quizz');
     }
 
     // Affiche un quizz spécifique
@@ -59,31 +59,31 @@ class QuizzController extends Controller
     // Affiche le formulaire d'édition
     public function edit($id)
     {
-        return view('pages.quizz.edit');
+        $quizz = Quizz::findOrFail($id);
+        
+        return view('pages.quizz.edit', compact('quizz'));
     }
 
     // Met à jour un quizz spécifique
-    public function update(Request $request, $id)
-    {
-        // $request->validate([
-        //     'titre' => 'required',
-        //     'description' => 'required',
-        //     'duree' => 'required',
-        //     'heure_debut' => 'required|date_format:H:i'
-        // ]);
-
-        // $quizz = Quizz::findOrFail($id);
-        // $quizz->titre = $request->titre;
-        // $quizz->description = $request->description;
-        // $quizz->duree = $request->duree;
-        // $quizz->heure_debut = $request->heure_debut;
-
-        // $quizz->save();
-
-        // return redirect('quizz');
+    public function update(Request $request, $id) {
+        $request->validate([
+            'titre' => 'required',
+            'description' => 'required',
+            'duree' => 'required',
+            'heure_debut' => 'required|date_format:H:i'
+        ]);
+    
+        $quizz = Quizz::findOrFail($id);
+        $quizz->titre = $request->titre;
+        $quizz->description = $request->description;
+        $quizz->duree = $request->duree;
+        $quizz->heure_debut = Carbon::createFromFormat('H:i', $request->heure_debut)->format('H:i');
+    
+        $quizz->save();
+    
+        return redirect('/quizz');
     }
-
-    // Supprime un quizz spécifique
+    
     public function destroy($id)
     {
         $quizz = Quizz::findOrFail($id);
