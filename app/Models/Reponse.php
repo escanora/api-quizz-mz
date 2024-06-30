@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class ReponseController extends Controller
+class Reponse extends Model
 {
-    public function index() {
-        return view('pages.reponse.index');
-    }
+    use HasFactory;
 
-    public function create() {
-        return view('pages.reponse.create');
-    }
+    protected $fillable = [
+        'questions_id',
+        'texte',
+        'fichier',
+        'est_correcte'
+    ];
 }

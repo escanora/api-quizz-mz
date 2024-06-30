@@ -36,7 +36,7 @@ class QuestionController extends Controller
     // Affiche un question spécifique
     public function show($id)
     {
-        $question = Quiz::with('questions.answers')->findOrFail($id);
+        $question = Quizz::with('questions.answers')->findOrFail($id);
         return response()->json($question);
     }
 
@@ -49,7 +49,7 @@ class QuestionController extends Controller
     // Met à jour un question spécifique
     public function update(Request $request, $id)
     {
-        $question = Quiz::findOrFail($id);
+        $question = Quizz::findOrFail($id);
         $question->update($request->all());
         return response()->json($question);
     }
@@ -57,7 +57,7 @@ class QuestionController extends Controller
     // Supprime un question spécifique
     public function destroy($id)
     {
-        $question = Quiz::findOrFail($id);
+        $question = Quizz::findOrFail($id);
         $question->delete();
         return response()->json(null, 204);
 

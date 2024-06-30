@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class QuizController extends Controller
+class Quizz extends Model
 {
-    public function index() {
-        return view('pages.quiz.index');
-    }
+    use HasFactory;
 
-    public function create() {
-        return view('pages.quiz.create');
-    }
+    protected $table = 'quizzes';
+    protected $fillable = [
+        'titre',
+        'description',
+        'duree',
+        'heure_debut'
+    ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Quizz;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,60 +20,75 @@ class QuizzController extends Controller
             quizzes.heure_debut as heure_debut
         "))->paginate(8);
 
-        return view('pages.quiz.index', compact('quizzes'));
+        return view('pages.quizz.index', compact('quizzes'));
     }
 
     // methode pour creer les quizz et les envoyer en DB
     public function create() {
-        return view('pages.quiz.create');
+        return view('pages.quizz.create');
     }
 
     // methode pour enregistrer les quizz dans la DB
     public function store(Request $request) {
         $request->validate([
-            'titre',
-            'description',
-            'duree',
-            'heure_debut'
+            'titre' => 'required',
+            'description' => 'required',
+            'duree' => 'required',
+            'heure_debut' => 'required|date_format:H:i'
         ]);
-    }
-
-    // Affiche un quiz spécifique
-    public function show($id)
-    {
-        $quiz = Quiz::with('questions.answers')->findOrFail($id);
-        return response()->json($quiz);
-    }
-
-    // Affiche le formulaire d'édition
-    public function edit($id)
-    {
-        //
-    }
-
-    // Met à jour un quiz spécifique
-    public function update(Request $request, $id)
-    {
-        $quiz = Quiz::findOrFail($id);
-        $quiz->update($request->all());
-        return response()->json($quiz);
-    }
-
-    // Supprime un quiz spécifique
-    public function destroy($id)
-    {
-        $quiz = Quiz::findOrFail($id);
-        $quiz->delete();
-        return response()->json(null, 204);
 
         $quizz = new Quizz();
         $quizz->titre = $request->titre;
         $quizz->description = $request->description;
         $quizz->duree = $request->duree;
-        $quizz->heure_debut = $request->heure_debut;
+        $quizz->heure_debut = Carbon::createFromFormat('H:i', $request->heure_debut)->format('H:i');
 
         $quizz->save();
 
-        return redirect('quiz');
+
+        return redirect('quizz');
+    }
+
+    // Affiche un quizz spécifique
+    public function show($id)
+    {
+        $quizz = Quizz::findOrFail($id);
+        return view('pages.quizz.show', compact('quizz'));
+    }
+
+    // Affiche le formulaire d'édition
+    public function edit($id)
+    {
+        return view('pages.quizz.edit');
+    }
+
+    // Met à jour un quizz spécifique
+    public function update(Request $request, $id)
+    {
+        // $request->validate([
+        //     'titre' => 'required',
+        //     'description' => 'required',
+        //     'duree' => 'required',
+        //     'heure_debut' => 'required|date_format:H:i'
+        // ]);
+
+        // $quizz = Quizz::findOrFail($id);
+        // $quizz->titre = $request->titre;
+        // $quizz->description = $request->description;
+        // $quizz->duree = $request->duree;
+        // $quizz->heure_debut = $request->heure_debut;
+
+        // $quizz->save();
+
+        // return redirect('quizz');
+    }
+
+    // Supprime un quizz spécifique
+    public function destroy($id)
+    {
+        $quizz = Quizz::findOrFail($id);
+        $quizz->delete();
+
+        return back();
     }
 }

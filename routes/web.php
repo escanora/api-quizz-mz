@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'dashboard'])->name('modo.dashboard');
 Route::get('/analytique', [DashboardController::class, 'analytique'])->name('modo.analytique');
 
-Route::resource('/quiz', QuizzController::class);
-
-Route::get('/question', [DashboardController::class, 'question'])->name('modo.question');
-Route::get('/reponse', [DashboardController::class, 'reponse'])->name('modo.reponse');
+Route::resource('/quizz', QuizzController::class);
+Route::resource('/question', QuestionController::class);
+Route::resource('/reponse', ReponseController::class);
