@@ -8,9 +8,9 @@
             <form action="{{ route('quizz.store') }}" method="POST" class="card">
                 @csrf
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title ">Formulaire d'enregistrement d'un quizz</h4>
+                    <h4 class="card-title">Formulaire d'enregistrement d'un quizz</h4>
                     <div>
-                        <a href="{{ route('quizz.index') }}" class="btn btn-sm btn-outline-success">Liste des quizzes</a>
+                        <a href="{{ route('quizz.index') }}" class="btn btn-sm btn-outline-primary">Liste des quizzes</a>
                     </div>
                 </div>
 

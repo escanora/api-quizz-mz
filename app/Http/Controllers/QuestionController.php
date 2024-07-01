@@ -36,23 +36,23 @@ class QuestionController extends Controller
             'quizzes_id' => 'required',
             'fichier' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-    
+
         $question = new Question();
         $question->texte = $request->texte;
         $question->quizzes_id = $request->quizzes_id;
-    
+
         if ($request->hasFile('fichier')) {
             $file = $request->file('fichier');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('questions/images'), $filename);
             $question->fichier = $filename;
         }
-    
+
         $question->save();
-    
+
         return redirect('/question');
     }
-    
+
 
     // Affiche un question spécifique
     public function show($id)
@@ -75,22 +75,22 @@ class QuestionController extends Controller
         $request->validate([
             'texte' => 'required',
             'quizzes_id' => 'required',
-            'fichier' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'fichier' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-    
+
         $question = Question::findOrFail($id);
         $question->texte = $request->texte;
         $question->quizzes_id = $request->quizzes_id;
-    
+
         if ($request->hasFile('fichier')) {
             $file = $request->file('fichier');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('questions/images'), $filename);
             $question->fichier = $filename;
         }
-    
+
         $question->save();
-    
+
         return redirect('/question');
 
     }
@@ -100,7 +100,7 @@ class QuestionController extends Controller
     {
         $question = Question::findOrFail($id);
         $question->delete();
-       
+
         return redirect('/question');
     }
 }

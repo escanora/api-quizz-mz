@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reponse;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -11,63 +12,76 @@ class ReponseController extends Controller
 {
     // methode pour afficher les listes de la DB
     public function index() {
-        $quizzes = Quizz::select(DB::raw("
-            reponse.id as id,
-            reponse.titre as titre,
-            reponse.description as description,
-        "))->paginate(8);
-
-        return view('pages.reponse.index', compact('reponse'));
+        $reponses = Reponse::with('question')->paginate(8);
+        return view('pages.reponse.index', compact('reponses'));
     }
 
-    // methode pour creer les reponses et les envoyer en DB
+    // methode pour creer les reponse et les envoyer en DB
     public function create() {
-        return view('pages.reponse.create');
+        $questions = Question::all();
+        return view('pages.reponse.create', compact('questions'));
     }
 
-    // methode pour enregistrer les reponses dans la DB
+    // methode pour enregistrer les reponse dans la DB
     public function store(Request $request) {
         $request->validate([
-            'titre',
-            'description',
+            'texte' => 'required',
+            'questions_id' => 'required',
+            'est_correcte' => 'required|in:0,1'
         ]);
+
+        $reponse = new Reponse();
+        $reponse->texte = $request->texte;
+        $reponse->questions_id = $request->questions_id;
+        $reponse->est_correcte = (int) $request->est_correcte;
+
+        $reponse->save();
+
+        return redirect('/reponse');
     }
+
 
     // Affiche un reponse spécifique
     public function show($id)
     {
-        $quiz = Quiz::with('questions.answers')->findOrFail($id);
-        return response()->json($quiz);
+        $reponse = Reponse::with('question')->findOrFail($id);
+        return view('pages.reponse.show', compact('reponse'));
     }
 
     // Affiche le formulaire d'édition
     public function edit($id)
     {
-        //
+        $reponse = Reponse::findOrFail($id);
+        $questions = Question::all();
+        return view('pages.reponse.edit', compact('reponse', 'questions'));
     }
 
-    // Met à jour une reponse spécifique
+    // Met à jour un reponse spécifique
     public function update(Request $request, $id)
     {
-        $quiz = Quiz::findOrFail($id);
-        $quiz->update($request->all());
-        return response()->json($quiz);
-    }
+        $request->validate([
+            'texte' => 'required',
+            'questions_id' => 'required',
+            'est_correcte' => 'required|in:0,1'
+        ]);
 
-    // Supprime une reponse spécifique
-    public function destroy($id)
-    {
-        $quiz = Quiz::findOrFail($id);
-        $quiz->delete();
-        return response()->json(null, 204);
-
-        $reponse = new Quizz();
-        $reponse->titre = $request->titre;
-        $reponse->description = $request->description;
+        $reponse = Reponse::findOrFail($id);
+        $reponse->texte = $request->texte;
+        $reponse->questions_id = $request->questions_id;
+        $reponse->est_correcte = (int) $request->est_correcte;
 
         $reponse->save();
 
-        return redirect('quiz');
+        return redirect('/reponse');
+
     }
 
+    // Supprime un reponse spécifique
+    public function destroy($id)
+    {
+        $reponse = Reponse::findOrFail($id);
+        $reponse->delete();
+
+        return redirect('/reponse');
+    }
 }

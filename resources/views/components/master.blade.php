@@ -38,5 +38,6 @@
     <script src="{{ asset('assets/dist/js/demo.min.js?1692870487') }}" defer></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    @yield('script')
   </body>
 </html>

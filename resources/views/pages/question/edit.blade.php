@@ -11,7 +11,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">Formulaire de modification d'une question</h4>
                     <div>
-                        <a href="{{ route('question.index') }}" class="btn btn-sm btn-outline-success">Liste des questions</a>
+                        <a href="{{ route('question.index') }}" class="btn btn-sm btn-outline-primary">Liste des questions</a>
                     </div>
                 </div>
 
@@ -36,7 +36,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                             <div class="mb-3">
                                 <label class="form-label">Image </label>

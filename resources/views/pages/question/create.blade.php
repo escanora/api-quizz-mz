@@ -8,9 +8,9 @@
             <form action="{{ route('question.store') }}" method="POST" class="card" enctype="multipart/form-data">
                 @csrf
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title ">Formulaire d'enregistrement d'une question</h4>
+                    <h4 class="card-title">Formulaire d'enregistrement d'une question</h4>
                     <div>
-                        <a href="{{ route('question.index') }}" class="btn btn-sm btn-outline-success">Liste des questions</a>
+                        <a href="{{ route('question.index') }}" class="btn btn-sm btn-outline-primary">Liste des questions</a>
                     </div>
                 </div>
 

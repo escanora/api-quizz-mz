@@ -12,7 +12,10 @@ class Reponse extends Model
     protected $fillable = [
         'questions_id',
         'texte',
-        'fichier',
         'est_correcte'
     ];
+
+    public function question() {
+        return $this->belongsTo(Question::class, 'questions_id');
+    }
 }

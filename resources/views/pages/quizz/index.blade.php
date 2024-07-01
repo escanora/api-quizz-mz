@@ -8,7 +8,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">Liste des quizz</h3>
             <div>
-                <a href="{{ route('quizz.create') }}" class="btn btn-sm btn-outline-success">Nouveau Quiz</a>
+                <a href="{{ route('quizz.create') }}" class="btn btn-sm btn-outline-primary">Nouveau Quiz</a>
             </div>
         </div>
         <div class="card-body border-bottom py-3">
@@ -43,6 +43,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if (!$quizzes->isNotEmpty())
+                        <td class="text-danger text-center">Aucun quizz enregistré !</td>
+                    @endif
                     @foreach($quizzes as $quizz)
                         <tr>
                             <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>

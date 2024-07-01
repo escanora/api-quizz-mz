@@ -7,11 +7,17 @@
     <div class="container-xl">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">Liste des questions</h3>
+                    <div>
+                        <a href="{{ route('question.create') }}" class="btn btn-sm btn-outline-primary">Nouvelle Question</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row row-cards">
+                        @if (!$questions->isNotEmpty())
+                            <div class="text-danger text-center">Aucune question enregistrée !</div>
+                        @endif
                         @foreach ($questions as $question)
                         <div class="col-4">
                             <div class="card">
@@ -40,7 +46,6 @@
                                 @else
                                 @endif
                             </div>
-                            
                         </div>
                         @endforeach
                     </div>
